@@ -1,0 +1,50 @@
+`timescale 1ns / 1ps
+//³¯¼wªé0111279
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:     
+// Design Name: 
+// Module Name:    Instruction_Memory 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module Instr_Memory
+(
+	addr_i, 
+	instr_o
+);
+
+// Interface
+input	[31:0]		addr_i;
+output[31:0]		instr_o;
+integer          i;
+
+// Instruction File
+reg		[31:0]		instruction_file	[0:31];
+
+initial begin
+
+    for ( i=0; i<32; i=i+1 )
+            instruction_file[i] = 32'b0;
+    
+	//Read instruction from "CO_P4_test_1.txt" or "CO_P4_test_2.txt" or "CO_P4_test_3.txt"
+    $readmemb("CO_P4_test_1.txt", instruction_file);
+	//$readmemb("CO_P4_test_2.txt", instruction_file);
+	//$readmemb("CO_P4_test_3.txt", instruction_file);
+	
+end
+
+assign	instr_o = instruction_file[addr_i/4];  
+
+endmodule
